@@ -1,0 +1,19 @@
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: mirror-traffic-to-reviews-v3
+spec:
+  destination:
+    name: reviews
+  precedence: 11
+  route:
+  - labels:
+      version: v2
+    weight: 100
+  - labels: 
+      version: v3
+    weight: 0
+  mirror:
+    name: reviews
+    labels:
+      version: v3
